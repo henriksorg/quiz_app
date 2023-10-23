@@ -7,6 +7,10 @@ body{
     align-items: center;
 }
 
+.quiz-card{
+    width: 30rem;
+}
+
 .flex-row{
     display: flex;
     flex-direction: row;
