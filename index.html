@@ -22,7 +22,7 @@
   <script src="script.js"></script>
 </head>
 
-<body>
+<body onload="init()">
   <div class="card flex-row">
     <div class="sidebar">
       <img src="img/logo.png" class="logo-img" alt="img logo">
@@ -32,22 +32,22 @@
     <div class="card-body quiz-card">
       <h5 class="card-title ">QUIZAPP</h5>
       <span class="card-text">Question</span>
-      <div class="card quiz-answer-card mt-1">
+      <div class="card quiz-answer-card mt-1" onclick="answer(1 )">
         <div class="card-body" id="answer1">
           Answer
         </div>
       </div>
-      <div class="card quiz-answer-card mt-1">
+      <div class="card quiz-answer-card mt-1" onclick="answer(2)">
         <div class="card-body" id="answer2">
           Answer
         </div>
       </div>
-      <div class="card quiz-answer-card mt-1">
+      <div class="card quiz-answer-card mt-1" onclick="answer(3)">
         <div class="card-body" id="answer3">
           Answer
         </div>
       </div>
-      <div class="card quiz-answer-card mt-1 ">
+      <div class="card quiz-answer-card mt-1 " onclick="answer(4)">
         <div class="card-body" id="answer4">
           Answer
         </div>

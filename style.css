@@ -35,3 +35,16 @@ h5 {
     background-color: #27355C;
 }
 
+.quiz-answer-card:hover{
+    cursor: pointer;
+    background-color: rgba(0,0,0,0.05);
+}
+
+.backgrd_gr{
+    background-color: #B7F799;
+}
+
+.backgrd_red{
+    background-color: #FFA3A4;
+}
+
