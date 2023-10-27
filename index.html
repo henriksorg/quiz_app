@@ -26,45 +26,19 @@
     <div class="sidebar">
       <img src="img/logo.png" class="logo-img mx-4 mt-3" alt="img logo">
       <div class="nav-links-sidebar">
-        <span id="nav-link-0">HTML</span>
-        <span id="nav-link-1">CSS</span>
-        <span id="nav-link-2">JS</span>
-        <span id="nav-link-3">Java</span>
+        <span id="nav-link-0" onclick="jumpToQuestion(0)">HTML</span>
+        <span id="nav-link-1" onclick="jumpToQuestion(1)">CSS</span>
+        <span id="nav-link-2" onclick="jumpToQuestion(2)">JS</span>
+        <span id="nav-link-3" onclick="jumpToQuestion(3)">Java</span>
       </div>
     </div>
 
-    <div class="card-body quiz-card">
-      <span class="card-text" id="quiz-question">Question</span>
-      <div class="card quiz-answer-card mt-1 d-flex flex-row align-items-center border-white" onclick="answer(1 )">
-        <div class="answer-letter">A</div>
-        <div class="card-body" id="answer1">
-          Answer
-        </div>
-      </div>
-      <div class="card quiz-answer-card mt-1 d-flex flex-row align-items-center border-white" onclick="answer(2)">
-        <div class="answer-letter">B</div>
-        <div class="card-body" id="answer2">
-          Answer
-        </div>
-      </div>
-      <div class="card quiz-answer-card mt-1 d-flex flex-row align-items-center border-white" onclick="answer(3)">
-        <div class="answer-letter">C</div>
-        <div class="card-body" id="answer3">
-          Answer
-        </div>
-      </div>
-      <div class="card quiz-answer-card mt-1 d-flex flex-row align-items-center border-white" onclick="answer(4)">
-        <div class="answer-letter">D</div>
-        <div class="card-body" id="answer4">
-          Answer
-        </div>
-      </div>
-      <img src="img/icon-links.png" alt="zurück" class="arrow arrow-left" onclick="changeQuestion(-1)">
-      <img src="img/icon-rechts.png" alt="weiter" class="arrow arrow-right" onclick="changeQuestion(1)" disable>
+    <div class="card-body quiz-card text-center " id="card-body">
+      
     </div>
   </div>
   <div>
-    
+
 </body>
 
 </html>
