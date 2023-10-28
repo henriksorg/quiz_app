@@ -97,8 +97,8 @@ function renderQuestionTemplate() {
         </div>
       </div>
       
-      <div class="disable-arrow"><img src="img/icon-links.png" alt="zurück" class="arrow arrow-left" onclick="changeQuestion(-1)"></div>
-      <div class="disable-arrow"><img src="img/icon-rechts.png" alt="weiter" class="arrow arrow-right" onclick="changeQuestion(1)"></div>
+      <div class="disable-arrow" id="arrow-left"><img src="img/icon-links.png" alt="zurück" class="arrow arrow-left" onclick="changeQuestion(-1)"></div>
+      <div class="disable-arrow" id="arrow-right"><img src="img/icon-rechts.png" alt="weiter" class="arrow arrow-right" onclick="changeQuestion(1)"></div>
       `
 }
 
@@ -126,8 +126,8 @@ function answer(selection) {
 
 function changeQuestion(operator) {
   currentQuestion += (operator);
-  if (currentQuestion < 0) {
-    currentQuestion = 0;
+  if (currentQuestion == 0) {
+    disableArrow(left);
   } else if (currentQuestion >= questions.length) {
     renderResult();
   } else {
@@ -137,6 +137,11 @@ function changeQuestion(operator) {
 
 }
 
+function disableArrow(direction){
+  arrow = document.getElementById('arrow-', direction);
+  arrow.classList.remove('disable-arrow')
+  arrow.classList.add('enable-arrow')
+}
 
 function jumpToQuestion(questionNumber) {
   currentQuestion = questionNumber;
@@ -174,13 +179,13 @@ function removeHighlight() {
 }
 
 
-function renderResult() {
+function renderResultScreen() {
   let body = document.getElementById('card-body')
-  body.innerHTML = renderResultTemplate()
+  body.innerHTML = renderResultScreenTemplate()
 }
 
 
-function renderResultTemplate() {
+function renderResultScreenTemplate() {
   return `
     <div class="result-headline">
       <img src="/img/brain_result.png" alt="brain">

@@ -87,6 +87,10 @@ h5 {
     pointer-events:none
 }
 
+.enable-arrow{
+    pointer-events: all;
+}
+
 .arrow-left {
     left: 8px;
 }
