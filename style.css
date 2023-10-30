@@ -61,6 +61,10 @@ h5 {
     padding-top: 20%;
 }
 
+.headlines-home-page h3,h4{
+    text-align: center;
+}
+
 .headlines-home-page h3{
     display: flex;
     flex-direction: column;
