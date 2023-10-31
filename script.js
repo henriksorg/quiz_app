@@ -1,4 +1,4 @@
-let questionsHtml = [
+let questionsHTML = [
   {
     "question": "Who invented HTML?",
     "answer_0": "Robbie Williams",
@@ -21,51 +21,51 @@ let questionsHtml = [
   },
   {
     "question": "Choose the correct HTML element for the largest heading:",
-    "answer_0": "<h1>",
-    "answer_1": "<h6>",
-    "answer_2": "<heading>",
-    "answer_3": "<head>",
+    "answer_0": "\< h1 \>",
+    "answer_1": "\< h6 \>",
+    "answer_2": "\< heading \>",
+    "answer_3": "\< head \>",
     "right_answer": 0,
     "answered": false,
     "selected_answer": ""
   },
   {
     "question": "What is the correct HTML element for inserting a line break?",
-    "answer_0": "<lb>",
-    "answer_1": "<break>",
-    "answer_2": "<br>",
-    "answer_3": "<b>",
+    "answer_0": "\< lb \>",
+    "answer_1": "\< break \>",
+    "answer_2": "\< br \>",
+    "answer_3": "\< b \>",
     "right_answer": 2,
     "answered": false,
     "selected_answer": ""
   },
   {
     "question": "Choose the correct HTML element to define important text",
-    "answer_0": "<important>",
-    "answer_1": "<b>",
-    "answer_2": "<i>",
-    "answer_3": "<strong>",
+    "answer_0": "\< important \>",
+    "answer_1": "\< b \>",
+    "answer_2": "\< i \>",
+    "answer_3": "\< strong \>",
     "right_answer": 3,
     "answered": false,
-    "selected_answer": "<strong>"
+    "selected_answer": ""
   },
   {
     "question": "Choose the correct HTML element to define emphasized text",
-    "answer_0": "<i>",
-    "answer_1": "<em>",
-    "answer_2": "<italic>",
-    "answer_3": "<b>",
+    "answer_0": "\< i \>",
+    "answer_1": "\< em \>",
+    "answer_2": "\< italic \>",
+    "answer_3": "\< b \>",
     "right_answer": 0,
     "answered": false,
     "selected_answer": ""
   },
   {
     "question": "Which of these elements are all <table> elements?",
-    "answer_0": "<table><head><tfoot>  ",
-    "answer_1": "<table><tr><td>  ",
-    "answer_2": "<table><tr><tt>",
-    "answer_3": "<thead><body><tr>",
-    "right_answer": 0,
+    "answer_0": "\< table \>\< head \>\< tfoot \>",
+    "answer_1": "\< table \>\< tr \>\< td \>  ",
+    "answer_2": "\< table \>\< tr \>\< tt \>",
+    "answer_3": "\< thead \>\< body \>\< tr \>",
+    "right_answer": 1,
     "answered": false,
     "selected_answer": ""
   },
@@ -82,13 +82,13 @@ let questionsNBA = [
     "right_answer": 0,
     "answered": false,
     "selected_answer": ""
-  },{
+  }, {
     "question": "Who was the number 1 pick in the 2018 NBA draft?",
     "answer_0": "Trae Young",
     "answer_1": "Deandre Ayton",
     "answer_2": "Luka Doncic",
     "answer_3": "Triple J",
-    "right_answer": 0,
+    "right_answer": 1,
     "answered": false,
     "selected_answer": ""
   },
@@ -98,7 +98,7 @@ let questionsNBA = [
     "answer_1": "23 seconds",
     "answer_2": "24 seconds",
     "answer_3": "25 seconds",
-    "right_answer": 0,
+    "right_answer": 2,
     "answered": false,
     "selected_answer": ""
   },
@@ -108,7 +108,7 @@ let questionsNBA = [
     "answer_1": "Shaquille O Neil",
     "answer_2": "Kobe Bryant Sr.",
     "answer_3": "Stephen Curry",
-    "right_answer": 0,
+    "right_answer": 1,
     "answered": false,
     "selected_answer": ""
   },
@@ -207,12 +207,12 @@ let questionsGermany = [
     "selected_answer": ""
   },
   {
-    "question": "How many years did it take to complete Cologne’s cathedral? ",
+    "question": "How many years did it take to complete the Cathedral of Cologne? ",
     "answer_0": "12",
     "answer_1": "150",
     "answer_2": "632",
     "answer_3": "1004",
-    "right_answer": 3,
+    "right_answer": 2,
     "answered": false,
     "selected_answer": ""
   },
@@ -285,7 +285,8 @@ let questionsElectronics = [
 
 let currentQuestion = 0;
 let rightAnswers = 0;
-
+let questions = questionsElectronics;
+let answeredQuestions = 0;
 
 function init() {
   renderStartPage();
@@ -302,10 +303,10 @@ function renderStartPageTemplate() {
   return `
   <h2>Welcome to QuizzIt</h2>
   <h3>Which Quiz do you want to Play?</h3>
-  <button onclick="renderWelcomePage('HTML')" class="btn btn-outline-danger mt-2 w-50">HTML-Quiz</button>
-  <button onclick="renderWelcomePage('CSS')" class="btn btn-outline-primary mt-2 w-50">CSS-Quiz</button>
-  <button onclick="renderWelcomePage('JavaScript')" class="btn btn-outline-warning mt-2 w-50">JavaScript-Quiz</button>
-  <button onclick="renderWelcomePage('Java')" class="btn btn-outline-secondary mt-2 w-50">Java-Quiz</button>
+  <button onclick="renderWelcomePage('HTML')" class="btn btn-outline-danger mt-4 w-50">HTML-Quiz</button>
+  <button id="NBA" onclick="renderWelcomePage('NBA')" class="btn btn-outline-primary mt-4 w-50">NBA-Quiz</button>
+  <button id="Germany" onclick="renderWelcomePage('Germany')" class="btn btn-outline-warning mt-4 w-50">Germany-Quiz</button>
+  <button id="Electronics" onclick="renderWelcomePage('Electronics')" class="btn btn-outline-secondary mt-4 w-50">Electronics-Quiz</button>
   `
 }
 
@@ -313,6 +314,8 @@ function renderStartPageTemplate() {
 function renderWelcomePage(quizName) {
   body = document.getElementById('card-body');
   body.innerHTML = renderWelcomePageTemplate(quizName);
+  chooseQuiz(quizName);
+  highlightSection(quizName);
 }
 
 
@@ -328,6 +331,23 @@ function renderWelcomePageTemplate(quizName) {
     </button>
   </div>
   `
+}
+
+function chooseQuiz(quizName) {
+  if (quizName === 'HTML') {
+    questions = questionsHTML;
+  } else if (quizName === 'NBA') {
+    questions = questionsNBA;
+  } else if (quizName === 'Germany') {
+    questions = questionsGermany;
+  } else if (quizName === 'Electronics') {
+    questions = questionsElectronics;
+  }
+}
+
+
+function highlightSection(quizName){
+  document.getElementById(quizName).classList.add('highlight');
 }
 
 
@@ -398,11 +418,20 @@ function showQuestion() {
 
 function answer(selection) {
   let question = questions[currentQuestion];
+  answeredQuestions++;
   saveAnswer(question, selection);
   showSolution();
   countRightAnswers(question, selection);
   enableNextQuestion();
   blockAnswers();
+  progressBar();
+}
+
+
+function progressBar(){
+  let percentage = Math.round(answeredQuestions / questions.length * 100);
+  console.log(percentage)
+  document.getElementById('progress-bar').style.width = `${percentage}%`;
 }
 
 
@@ -483,14 +512,6 @@ function enablePreviousQuestion() {
 }
 
 
-// function jumpToQuestion(questionNumber) {
-//   currentQuestion = questionNumber;
-//   removeResult();
-//   whichAnswerSelcted();
-//   showQuestion();
-// }
-
-
 function removeResult() {
   for (let i = 0; i <= 3; i++) {
     document.getElementById('answer' + i).classList.remove('backgrd_gr');
@@ -511,19 +532,6 @@ function whichAnswerSelcted() {
 }
 
 
-// function highlightSidebarElement() {
-//   removeHighlight();
-//   document.getElementById('nav-link-' + currentQuestion).classList.add('highlight');
-// }
-
-
-function removeHighlight() {
-  for (let i = 0; i < 4; i++) {
-    document.getElementById('nav-link-' + i).classList.remove('highlight');
-  }
-}
-
-
 function renderResult() {
   let body = document.getElementById('card-body')
   body.innerHTML = renderResultTemplate()
@@ -534,7 +542,7 @@ function renderResultTemplate() {
   return `
     <div class="result-headline">
       <img src="/img/brain_result.png" alt="brain">
-      <h2><span>COMPLETE</span><span>HTML QUIZ</span></h2>
+      <h2><span>COMPLETE</span><span>QUIZ</span></h2>
     </div>
     <div class="end-result"><span class="your-score">Your Score</span><span class="right-answers">${rightAnswers}/${questions.length}</span></div>
     <div class="d-flex flex-column w-100 align-items-center">
@@ -547,6 +555,7 @@ function renderResultTemplate() {
 
 function replayQuiz() {
   resetAllValues();
+  resetHighlight();
   renderStartPage();
 }
 
@@ -554,9 +563,19 @@ function replayQuiz() {
 function resetAllValues() {
   currentQuestion = 0;
   rightAnswers = 0;
+  answeredQuestions =0;
+  document.getElementById('progress-bar').style.width = '0';
   for (i = 0; i < questions.length; i++) {
     let question = questions[i];
     question["answered"] = false;
     question["selected_answer"] = "";
   }
+}
+
+
+function resetHighlight(){
+  document.getElementById('HTML').classList.remove('highlight');
+  document.getElementById('NBA').classList.remove('highlight');
+  document.getElementById('Germany').classList.remove('highlight');
+  document.getElementById('Electronics').classList.remove('highlight');
 }
