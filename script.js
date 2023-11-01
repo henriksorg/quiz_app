@@ -50,16 +50,6 @@ let questionsHTML = [
     "selected_answer": ""
   },
   {
-    "question": "Choose the correct HTML element to define emphasized text",
-    "answer_0": "\< i \>",
-    "answer_1": "\< em \>",
-    "answer_2": "\< italic \>",
-    "answer_3": "\< b \>",
-    "right_answer": 0,
-    "answered": false,
-    "selected_answer": ""
-  },
-  {
     "question": "Which of these elements are all <table> elements?",
     "answer_0": "\< table \>\< head \>\< tfoot \>",
     "answer_1": "\< table \>\< tr \>\< td \>  ",
@@ -251,12 +241,12 @@ let questionsElectronics = [
     "selected_answer": ""
   },
   {
-    "question": "If you have three 1.5V batteries in series, what would be total voltage be? ",
+    "question": "If you have three 1.5V batteries connected in parallel, what would be total voltage be? ",
     "answer_0": "3.4 V",
     "answer_1": "1.5 V",
     "answer_2": "4.5 V",
     "answer_3": "3 V",
-    "right_answer": 3,
+    "right_answer": 1,
     "answered": false,
     "selected_answer": ""
   },
@@ -271,12 +261,12 @@ let questionsElectronics = [
     "selected_answer": ""
   },
   {
-    "question": "Which of the following is not a property of semiconductors used in electronic devices?",
-    "answer_0": "They excite electrons",
-    "answer_1": "They do not emit light",
-    "answer_2": "They have high thermal conductivity",
-    "answer_3": "They have variable electrical conductivity",
-    "right_answer": 1,
+    "question": "What is the correct formula for Ohm's law?",
+    "answer_0": "P = U * I",
+    "answer_1": "R = U * I",
+    "answer_2": "I = U * R",
+    "answer_3": "R = U / I",
+    "right_answer": 3,
     "answered": false,
     "selected_answer": ""
   }
@@ -288,15 +278,35 @@ let rightAnswers = 0;
 let questions = questionsElectronics;
 let answeredQuestions = 0;
 let currentQuiz = '';
+let nextQuiz = '';
+let startPage = true;
+
+let AUDIO_SUCCESS = new Audio('audio/right.wav');
+AUDIO_SUCCESS.volume = 0.5;
+let AUDIO_FAIL = new Audio('audio/wrong.wav');
+AUDIO_FAIL.volume = 0.5;
+
+
 
 function init() {
   renderStartPage();
 }
 
 
+function disableLinksAtStartPage(){
+  document.getElementById('nav-link-bar').style = 'pointer-events: none';
+}
+
+
+function enableLinksAtOtherPage(){
+  document.getElementById('nav-link-bar').style = 'pointer-events: unset';
+}
+
+
 function renderStartPage() {
   body = document.getElementById('card-body');
   body.innerHTML = renderStartPageTemplate();
+  disableLinksAtStartPage();
 }
 
 
@@ -318,6 +328,7 @@ function renderWelcomePage(quizName) {
   body.innerHTML = renderWelcomePageTemplate();
   chooseQuiz();
   highlightSection();
+  enableLinksAtOtherPage();
 }
 
 
@@ -336,22 +347,19 @@ function renderWelcomePageTemplate() {
 }
 
 function chooseQuiz() {
-  questions = eval(currentQuiz + 'questions')
-
-
-  // if (currentQuiz === 'HTML') {
-  //   questions = questionsHTML;
-  // } else if (currentQuiz === 'NBA') {
-  //   questions = questionsNBA;
-  // } else if (currentQuiz === 'Germany') {
-  //   questions = questionsGermany;
-  // } else if (currentQuiz === 'Electronics') {
-  //   questions = questionsElectronics;
-  // }
+  if (currentQuiz === 'HTML') {
+    questions = questionsHTML;
+  } else if (currentQuiz === 'NBA') {
+    questions = questionsNBA;
+  } else if (currentQuiz === 'Germany') {
+    questions = questionsGermany;
+  } else if (currentQuiz === 'Electronics') {
+    questions = questionsElectronics;
+  }
 }
 
 
-function highlightSection(){
+function highlightSection() {
   document.getElementById(currentQuiz).classList.add('highlight');
 }
 
@@ -433,7 +441,7 @@ function answer(selection) {
 }
 
 
-function progressBar(){
+function progressBar() {
   let percentage = Math.round(answeredQuestions / questions.length * 100);
   document.getElementById('progress-bar').style.width = `${percentage}%`;
 }
@@ -451,9 +459,11 @@ function showSolution() {
   let selctedAnswer = question["selected_answer"];
   let rightAnswer = 'answer' + question["right_answer"];
   if (question["answered"] == true && selctedAnswer == rightAnswer) {
-    document.getElementById(question["selected_answer"]).classList.add('backgrd_gr')
+    document.getElementById(question["selected_answer"]).classList.add('backgrd_gr');
+    AUDIO_SUCCESS.play();
   } else if (question["answered"] == true && selctedAnswer != rightAnswer) {
     document.getElementById(question["selected_answer"]).classList.add('backgrd_red');
+    AUDIO_FAIL.play();
   }
 }
 
@@ -550,8 +560,8 @@ function renderResultTemplate() {
     </div>
     <div class="end-result"><span class="your-score">Your Score</span><span class="right-answers">${rightAnswers}/${questions.length}</span></div>
     <div class="d-flex flex-column w-100 align-items-center">
-      <button class="btn btn-primary w-25">SHARE</button>
-      <button class="btn btn-outline-primary mt-1 w-25" onclick="replayQuiz()">REPLAY</button>
+      <button class="btn btn-primary w-25 btn-resp">SHARE</button>
+      <button class="btn btn-outline-primary mt-1 w-25 btn-resp" onclick="replayQuiz()">REPLAY</button>
     </div>
     <div class="trophy-container"><img src="img/tropy.png" alt="Trophy"></div>
   `
@@ -567,7 +577,7 @@ function replayQuiz() {
 function resetAllValues() {
   currentQuestion = 0;
   rightAnswers = 0;
-  answeredQuestions =0;
+  answeredQuestions = 0;
   document.getElementById('progress-bar').style.width = '0';
   document.getElementById(currentQuiz).classList.remove('highlight');
   for (i = 0; i < questions.length; i++) {
@@ -578,6 +588,31 @@ function resetAllValues() {
 }
 
 
-function changeToOtherQuiz(quizName){
-  
+function changeToOtherQuizAlert(quizName) {
+  nextQuiz = quizName;
+  openAlert();
+}
+
+
+function changeToOtherQuiz(decision) {
+  if (decision == true) {
+    quizname = nextQuiz;
+    closeAlert(); 
+    resetAllValues();
+    renderWelcomePage(quizname);
+  } else {
+    closeAlert();
+  }
+}
+
+
+function openAlert(){
+  document.getElementById('alert-bg').classList.remove('d-none');
+  document.getElementById('alert').classList.remove('d-none');
+}
+
+
+function closeAlert(){
+  document.getElementById('alert-bg').classList.add('d-none');
+  document.getElementById('alert').classList.add('d-none');
 }
