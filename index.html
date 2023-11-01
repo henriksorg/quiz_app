@@ -22,7 +22,7 @@
 </head>
 
 <body onload="init()">
-  <div class="card flex-row">
+  <div class="card main-card">
     <div class="progress">
       <div class="progress-bar" id="progress-bar" role="progressbar" style="width: 0%"></div>
     </div>
@@ -31,10 +31,10 @@
         <img src="img/logo.png" class="logo-img mt-3 w-75" alt="img logo">
       </div>
       <div class="nav-links-sidebar">
-        <span id="HTML">HTML</span>
-        <span id="NBA">NBA</span>
-        <span id="Germany">Germany</span>
-        <span id="Electronics">Electronics</span>
+        <span id="HTML" onclick="changeToOtherQuiz('HTML')">HTML</span>
+        <span id="NBA" onclick="changeToOtherQuiz('NBA')">NBA</span>
+        <span id="Germany" onclick="changeToOtherQuiz('Germany')">Germany</span>
+        <span id="Electronics" onclick="changeToOtherQuiz('Electronics')">Electronics</span>
       </div>
     </div>
 

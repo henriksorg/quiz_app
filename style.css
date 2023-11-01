@@ -23,6 +23,11 @@ body {
     pointer-events: none;
 }
 
+.main-card{
+    display: flex;
+    flex-direction: row;
+}
+
 .progress-bar{
     background-color: #27355C ;
 }
@@ -174,6 +179,12 @@ h5 {
     cursor: context-menu;
 }
 
+.nav-links-sidebar span:hover{
+    color: white;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
 .highlight {
     border-left: 4px solid white;
     color: white !important;
@@ -238,4 +249,78 @@ h5 {
 .end-result{
     font-weight: bold;
     margin-bottom: 5%;
+}
+
+.trophy-container{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.trophy-container img{
+    height: 25vh;
+}
+
+
+@media(max-width: 700px){
+    .main-card{
+        display: flex;
+        flex-direction: column;
+        width: 95vw;
+    }
+    .sidebar{
+        display: flex;
+        flex-direction: row;
+    }
+    .logo-img{
+        width: 90px !important;
+        height: 80px !important;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .nav-links-sidebar{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        margin-bottom: 1rem;
+        
+    }
+    .nav-links-sidebar span{
+        padding-top: 0.5rem;
+    }
+    .highlight{
+        border-left: none;
+        border-top: 4px solid white;
+    }
+    .quiz-card{
+        width: unset;
+    }
+}
+
+@media(max-width: 700px){
+    .sidebar{
+        display: flex;
+        flex-direction: column;
+    }
+    .logo-img{
+        width: 100px !important;
+        height: 80px !important;
+        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    .nav-links-sidebar{
+        margin-top: 0;
+    }
+    .nav-links-sidebar span{
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .trophy-container img{
+        height: 20vh;
+    }
 }

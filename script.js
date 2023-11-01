@@ -287,6 +287,7 @@ let currentQuestion = 0;
 let rightAnswers = 0;
 let questions = questionsElectronics;
 let answeredQuestions = 0;
+let currentQuiz = '';
 
 function init() {
   renderStartPage();
@@ -300,7 +301,7 @@ function renderStartPage() {
 
 
 function renderStartPageTemplate() {
-  return `
+  return /*html*/`
   <h2>Welcome to QuizzIt</h2>
   <h3>Which Quiz do you want to Play?</h3>
   <button onclick="renderWelcomePage('HTML')" class="btn btn-outline-danger mt-4 w-50">HTML-Quiz</button>
@@ -312,17 +313,18 @@ function renderStartPageTemplate() {
 
 
 function renderWelcomePage(quizName) {
+  currentQuiz = quizName;
   body = document.getElementById('card-body');
-  body.innerHTML = renderWelcomePageTemplate(quizName);
-  chooseQuiz(quizName);
-  highlightSection(quizName);
+  body.innerHTML = renderWelcomePageTemplate();
+  chooseQuiz();
+  highlightSection();
 }
 
 
-function renderWelcomePageTemplate(quizName) {
-  return `
+function renderWelcomePageTemplate() {
+  return /*html*/`
     <div class="headlines-home-page">
-    <h3> <span>Welcome to</span> <span>The Awesome ${quizName} Quiz</span></h3>
+    <h3> <span>Welcome to</span> <span>The Awesome ${currentQuiz} Quiz</span></h3>
     <h4>Ready for the challenge?</h4>
   </div>
   <div class="w-100 d-flex justify-content-end my-5">
@@ -333,21 +335,24 @@ function renderWelcomePageTemplate(quizName) {
   `
 }
 
-function chooseQuiz(quizName) {
-  if (quizName === 'HTML') {
-    questions = questionsHTML;
-  } else if (quizName === 'NBA') {
-    questions = questionsNBA;
-  } else if (quizName === 'Germany') {
-    questions = questionsGermany;
-  } else if (quizName === 'Electronics') {
-    questions = questionsElectronics;
-  }
+function chooseQuiz() {
+  questions = eval(currentQuiz + 'questions')
+
+
+  // if (currentQuiz === 'HTML') {
+  //   questions = questionsHTML;
+  // } else if (currentQuiz === 'NBA') {
+  //   questions = questionsNBA;
+  // } else if (currentQuiz === 'Germany') {
+  //   questions = questionsGermany;
+  // } else if (currentQuiz === 'Electronics') {
+  //   questions = questionsElectronics;
+  // }
 }
 
 
-function highlightSection(quizName){
-  document.getElementById(quizName).classList.add('highlight');
+function highlightSection(){
+  document.getElementById(currentQuiz).classList.add('highlight');
 }
 
 
@@ -359,7 +364,7 @@ function renderQuestionsPage() {
 
 
 function renderQuestionsPageTemplate() {
-  return `
+  return /*html*/`
     <span class="card-text" id="quiz-question">Question</span>
       <div class="card quiz-answer-card mt-1 d-flex flex-row align-items-center border-white" id="answer0" onclick="answer(0)">
         <div class="answer-letter">A</div>
@@ -430,7 +435,6 @@ function answer(selection) {
 
 function progressBar(){
   let percentage = Math.round(answeredQuestions / questions.length * 100);
-  console.log(percentage)
   document.getElementById('progress-bar').style.width = `${percentage}%`;
 }
 
@@ -539,23 +543,23 @@ function renderResult() {
 
 
 function renderResultTemplate() {
-  return `
+  return /*html*/`
     <div class="result-headline">
       <img src="/img/brain_result.png" alt="brain">
-      <h2><span>COMPLETE</span><span>QUIZ</span></h2>
+      <h2><span>QUIZ COMPLETE!!</span></h2>
     </div>
     <div class="end-result"><span class="your-score">Your Score</span><span class="right-answers">${rightAnswers}/${questions.length}</span></div>
     <div class="d-flex flex-column w-100 align-items-center">
       <button class="btn btn-primary w-25">SHARE</button>
-      <button class="btn text-primary" onclick="replayQuiz()">REPLAY</button>
+      <button class="btn btn-outline-primary mt-1 w-25" onclick="replayQuiz()">REPLAY</button>
     </div>
+    <div class="trophy-container"><img src="img/tropy.png" alt="Trophy"></div>
   `
 }
 
 
 function replayQuiz() {
   resetAllValues();
-  resetHighlight();
   renderStartPage();
 }
 
@@ -565,6 +569,7 @@ function resetAllValues() {
   rightAnswers = 0;
   answeredQuestions =0;
   document.getElementById('progress-bar').style.width = '0';
+  document.getElementById(currentQuiz).classList.remove('highlight');
   for (i = 0; i < questions.length; i++) {
     let question = questions[i];
     question["answered"] = false;
@@ -573,9 +578,6 @@ function resetAllValues() {
 }
 
 
-function resetHighlight(){
-  document.getElementById('HTML').classList.remove('highlight');
-  document.getElementById('NBA').classList.remove('highlight');
-  document.getElementById('Germany').classList.remove('highlight');
-  document.getElementById('Electronics').classList.remove('highlight');
+function changeToOtherQuiz(quizName){
+  
 }
