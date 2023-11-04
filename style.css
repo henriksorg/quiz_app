@@ -87,6 +87,12 @@ h5 {
     border-radius: 5px;
 }
 
+.PT-Sans{
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+}
+
 .headlines-home-page{
     background-image: url("img/brainbg.jpg");
     background-size: cover;
@@ -341,7 +347,7 @@ h5 {
         width: unset;
     }
     .trophy-container img{
-        height: 20vh;
+        height: 160px;
     }
     .btn-resp{
         width: 50% !important;
@@ -361,5 +367,19 @@ h5 {
     }
     .change-quiz-alert button{
         margin-top: 10px;
+    }
+}
+
+@media(max-width: 360px){
+    .nav-links-sidebar span{
+        margin-left: 5px;
+        margin-right: 5px;
+        font-size: 12px;
+    }
+    .main-card{
+        max-width: 90vw;
+    }
+    .trophy-container img{
+        height: 100px;
     }
 }
